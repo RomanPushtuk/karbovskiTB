@@ -1,0 +1,17 @@
+table {
+  margin: 100px auto;
+  border-collapse: collapse;
+  border-radius: 10px;
+  border: 3px solid grey;
+}
+
+th, td {
+  border: 2px solid grey;
+  box-sizing: border-box;
+}
+
+td {
+  width: 400px;
+  height: 100px;
+  text-align: center;
+}
