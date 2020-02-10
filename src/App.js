@@ -6,7 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
-import { Lecture1 } from "./lectures";
+import { Lecture1, Lecture2 } from "./lectures";
 
 import './App.css';
 
@@ -31,8 +31,8 @@ function App() {
           <Route path="/lecture1">
             <Lecture1 />
           </Route>
-          <Route path="/users">
-            {/*<Users />*/}
+          <Route path="/lecture2">
+            <Lecture2 />
           </Route>
         </Switch>
 
