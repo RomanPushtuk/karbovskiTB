@@ -3,7 +3,7 @@ import "../../../../../App.css";
 
 export function Git() {
     return (
-    <div class="stackedit__html">
+    <div className="stackedit__html">
         <h4 id="посмотреть-историю-коммита">Посмотреть историю коммита</h4>
         <p><code>git log</code> - просмотр истории коммитов</p>
         <p>Дополнительные флаги</p>

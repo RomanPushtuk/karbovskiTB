@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { Row } from "../Row";
 import "../../../../../App.css";
 
-const records = [
+const initialRecords = [
     {
         id: 1,
         text: "Text1"
@@ -17,43 +17,80 @@ const records = [
     }
 ];
 
-export function Table () {
+export class Table extends Component{
+    interval = null;
+    counter = 4;
 
-    const editText = (target) => {
+    state = {
+        records: [...initialRecords]
+    };
+
+    startInterval = () => {
+        this.interval = setInterval(() => {
+            const id = this.counter++;
+
+            this.setState({records : [...this.state.records, {id, text: `Текст${id}`}]})
+        }, 1000)
+    };
+
+    stopInterval = () => {
+        clearTimeout(this.interval);
+    };
+
+    editText = (id) => {
         const { prompt } = window;
         const text = prompt("Введите текст");
 
-        target.parentNode.previousElementSibling.innerText = text;
+        const newRecords = this.state.records.map(record => {
+            if(record.id === Number(id)){
+                record.text = text;
+                return record;
+            }
+            return record;
+        });
+        this.setState({records : [...newRecords] })
     };
 
-    const deleteRecord = (target) => {
+    deleteRecord = (id) => {
         const { confirm } = window;
         const result = confirm("Действительно удалить?");
 
         if (result) {
-            target.parentNode.parentNode.remove();
+            this.setState({ records : [...this.state.records.filter(record => record.id !== Number(id))] })
         }
     };
 
-    const handlerClick = (event) => {
+    handlerClick = (event) => {
         const { target } = event;
-        const { action } = target.dataset;
+        const { action, id } = target.dataset;
 
         switch (action) {
             case "edit":
-                return editText(target);
+                return this.editText(id);
             case "delete":
-                return deleteRecord(target);
+                return this.deleteRecord(id);
+            default:
+                return false;
         }
     };
 
-    return (
-        <table onClick={handlerClick}>
-            <tbody>
-            {records.map(({id, text}) => {
-                return <Row key={id} text={text} />
-            })}
-            </tbody>
-        </table>
-    )
+    renderRow = (record) => {
+        const { id, text } = record;
+        return <Row key={id} id={id} text={text} />
+    };
+
+    render(){
+        const { records } = this.state;
+        return (
+            <div>
+                <button onClick={this.startInterval}>Начать реактивное добавление</button>
+                <button onClick={this.stopInterval}>Закончить реактивное добавление</button>
+                <table onClick={this.handlerClick}>
+                    <tbody>
+                        {records.map(this.renderRow)}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 }

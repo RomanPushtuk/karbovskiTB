@@ -6,7 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
-import { Lecture1, Lecture2 } from "./lectures";
+import { Lecture1, Lecture2, Lecture3 } from "./lectures";
 
 import './App.css';
 
@@ -19,10 +19,10 @@ function App() {
               <Link to="/lecture1">Изучение Cookies, делегация, git</Link>
             </li>
             <li>
-              <Link to="/lecture2">Завтра</Link>
+              <Link to="/lecture2">git log и git stash</Link>
             </li>
             <li>
-              <Link to="/lecture3">Послезавтра</Link>
+              <Link to="/lecture3">Пересечение множеств</Link>
             </li>
           </ul>
         </nav>
@@ -33,6 +33,9 @@ function App() {
           </Route>
           <Route path="/lecture2">
             <Lecture2 />
+          </Route>
+          <Route path="/lecture3">
+            <Lecture3 />
           </Route>
         </Switch>
 
